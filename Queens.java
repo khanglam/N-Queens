@@ -1,5 +1,70 @@
 package Project2;
 
-public class Queens {
+import java.util.PriorityQueue;
 
+public class Queens {
+	int[] board;
+	int size;
+	PriorityQueue<SuccessorNode> pq = new PriorityQueue<SuccessorNode>();
+	
+	public Queens(int[] board, int size)
+	{
+		this.board = board;
+		this.size = size;
+		pq.add(new SuccessorNode(board, get_H(board)));
+//		SteepHillClimb(new SuccessorNode(board, get_H(board)));
+	}
+	
+	public SuccessorNode SteepHillClimb(SuccessorNode current)
+	{
+		while(true)
+		{
+			SuccessorNode neighbor = pq.poll();//takes the best child with best heuristic
+			pq.clear(); // then delete the rest
+			int[] board = neighbor.getSequence();
+			
+			if(current.get_h() <= neighbor.get_h())
+			{
+				generateSuccessors(board);
+			}
+			else
+				return current;
+			return neighbor;
+		}
+	}
+	
+	public void generateSuccessors(int[] current)
+	{
+		int[] board_clone;
+		int size = current.length;
+			for(int col = 0; col < size; col++)
+			{
+				for(int row = 0; row < size; row++)
+				{
+					if(board[col] == row) continue;
+					board_clone = current.clone();
+					board_clone[col] = row;
+					pq.add(new SuccessorNode(board_clone,get_H(board_clone)));
+				}
+			}
+	}
+	
+	public int get_H(int[] board)
+	{
+		int h = 0;
+		int offset;
+		int size = board.length;
+		for(int i = 0; i < size; i++)
+			for(int j = i + 1; j < size; j++)
+			{
+				if(board[i] == board[j])
+					h++;
+				offset = j - i;
+				if((board[i] == board[j] + offset) ||
+						board[i] == board[j] - offset)
+					h++;
+			}
+		return h;
+	}
+	
 }

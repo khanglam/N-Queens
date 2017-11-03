@@ -8,10 +8,16 @@ public class NQueens {
 	public static void main(String[] args) 
 	{
 		Scanner k = new Scanner(System.in);
-		System.out.print("How Many Queens? ");
-		int[] board = new int[k.nextInt()];
-		initializeBoard(board);
-		printBoard(board);
+//		System.out.print("How Many Queens? ");
+//		int[] board = new int[k.nextInt()];
+		int[] board = {3,2,1,4,3,2,1,2};
+//		initializeBoard(board);
+		Queens q = new Queens(board, board.length);
+		SuccessorNode result = q.SteepHillClimb(new SuccessorNode(board, q.get_H(board)));
+		printBoard(result.getSequence());
+//		printBoard(board);
+		System.out.println(q.get_H(board));
+		k.close();
 	}
 	
 	public static void initializeBoard(int[] board)
@@ -42,6 +48,8 @@ public class NQueens {
 	            }
 	            System.out.println();
 	        }
+	        for (int i = 0; i < N; i++)
+	        	System.out.print(board[i]);
 	        System.out.println();
 
 	}
