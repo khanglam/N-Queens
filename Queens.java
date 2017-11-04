@@ -68,5 +68,13 @@ public class Queens {
 			}
 		return h;
 	}
+	public int get_Fitness(int[] board)
+	{
+		int h = get_H(board);
+		int max = ((board.length) * (board.length - 1))/2;
+		int fn = max - h;
+		return fn;
+		
+	}
 	
 }

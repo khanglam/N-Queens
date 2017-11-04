@@ -12,10 +12,11 @@ public class NQueens {
 		initializeBoard(board);
 		Queens q = new Queens(board, board.length);
 		SuccessorNode result = q.SteepHillClimb(new SuccessorNode(board, q.get_H(board)));
+		printBoard(board);
 		printBoard(result.getSequence());
-//		printBoard(board);
+		System.out.println(q.get_H(board));
 		System.out.println(q.get_H(result.getSequence()));
-//		k.close();
+		System.out.println(q.get_Fitness(result.getSequence()));
 	}
 	
 	public static int[] userInput()
