@@ -7,17 +7,36 @@ public class NQueens {
 
 	public static void main(String[] args) 
 	{
-		Scanner k = new Scanner(System.in);
-//		System.out.print("How Many Queens? ");
-//		int[] board = new int[k.nextInt()];
-		int[] board = {3,2,1,4,3,2,1,2};
-//		initializeBoard(board);
+		int[] board = userInput();
+//		int[] board = {3,2,1,4,3,2,1,2};
+		initializeBoard(board);
 		Queens q = new Queens(board, board.length);
 		SuccessorNode result = q.SteepHillClimb(new SuccessorNode(board, q.get_H(board)));
 		printBoard(result.getSequence());
 //		printBoard(board);
-		System.out.println(q.get_H(board));
-		k.close();
+		System.out.println(q.get_H(result.getSequence()));
+//		k.close();
+	}
+	
+	public static int[] userInput()
+	{
+		Scanner k = new Scanner(System.in);
+		int[] board;
+		while(true)
+		{
+			try{
+				System.out.print("How Many Queens? ");
+				int input = k.nextInt();
+				board = new int[input];
+				k.close();
+				return board;
+			}catch(Exception e)
+			{
+				System.out.println("Integers Only");
+				k.nextLine();
+			}
+		}
+		
 	}
 	
 	public static void initializeBoard(int[] board)

@@ -1,5 +1,6 @@
 package Project2;
 
+import java.util.Arrays;
 import java.util.PriorityQueue;
 
 public class Queens {
@@ -17,19 +18,20 @@ public class Queens {
 	
 	public SuccessorNode SteepHillClimb(SuccessorNode current)
 	{
+		SuccessorNode neighbor;
 		while(true)
 		{
-			SuccessorNode neighbor = pq.poll();//takes the best child with best heuristic
+			neighbor = pq.poll();//takes the best child with best heuristic
 			pq.clear(); // then delete the rest
-			int[] board = neighbor.getSequence();
 			
-			if(current.get_h() <= neighbor.get_h())
+			if(Arrays.equals(current.getSequence(), this.board) || 
+					(current.get_h() > neighbor.get_h()))
 			{
-				generateSuccessors(board);
+				current = neighbor;
+				generateSuccessors(current.getSequence());
 			}
 			else
 				return current;
-			return neighbor;
 		}
 	}
 	
